@@ -4,28 +4,25 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'profile' %}">
+<form method="post" action="{% url 'new_user' %}">
 {% csrf_token %}
 <br><br><br><br>
 <table class="table table-light" style="width: 30%; margin-left: auto; margin-right: auto;">  
   <thead class="table-light">
     <tr>
-      <th colspan="2" align="center">Altere seus dados</th>
+      <th colspan="2" align="center">Registre sua conta</th>
     </tr>
   </thead> 
-  <tbody  class="table-group-divider"> 
-    <tr>
-      <td colspan="2" align="right"> {{ errors }} </td>     
-    </tr>
+  <tbody  class="table-group-divider">
     <tr>
       <td align="right"> {{ form.username.label_tag }} </td>
       <td align="left">  {{ form.username }}  </td>
-    </tr>    
+    </tr> 
     <tr>
       <td align="right"> {{ form.password.label_tag }} </td>
       <td align="left">  {{ form.password }}  </td>
-    </tr>    
-    <tr>
+    </tr>
+        <tr>
       <td align="right"> {{ form.email.label_tag }} </td>
       <td align="left">  {{ form.email }}  </td>
     </tr>
@@ -38,13 +35,13 @@
       <td align="left">  {{ form.last_name }}  </td>
     </tr>
     <tr>
-      <td colspan="2" align="center"> <button class="btn btn-primary" type="submit">Salvar Alterações</button> </td>
+      <td colspan="2" align="center"> <button class="btn btn-primary" type="submit">Cadastrar</button> </td>
     </tr>
   </tbody>
   <tfoot class="table-group-divider">
     <tr>
-      <td align="right"> <a href="">[Alterar Senha]</a> </td>
-      <td align="right"> <a href="{% url 'logout' %}">[LogOut]</a> </td>
+      <td align="right"> <a href="">[Lembrar senha]</a> </td>
+      <td align="right"> <a href="{% url 'new_user' %}">[Login]</a> </td>
     </tr>
   </tfoot>
 </table>   

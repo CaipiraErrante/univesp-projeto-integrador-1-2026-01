@@ -10,17 +10,19 @@ O estado atual do repositório está configurado com o Python 3.12, portanto, pr
 
 Porém, já realisei testes da aplicação em outro ambiente com o Phyton 3.14 e funcionou sem nenhum problema.
 
-DJANGO (versão 6.0.4) =>  uv pip install django
+### DJANGO (versão 6.0.4):
+
+    uv pip install django
 
 ## Outras dependências
 
 ### Blibliotecas do Python : 
 
-uv pip install requests
+    uv pip install requests
 
 ### Plugns do Django:
 
-uv pip install django-bootstrap5  django-allauth "django-allauth[socialaccount]" "django-allauth[headless]"
+    uv pip install django-bootstrap5  django-allauth "django-allauth[socialaccount]" "django-allauth[headless]"
 
 Documentação dos recursos utilizados. Consulte caso tenha alguma dúvida:
 
@@ -55,11 +57,11 @@ Ainda na app 'frontend' foi adicionado um processador de variáveis globais (con
 1. as views chamam os templates de layout a partir do método 'render()'; 
 ex:
 
-def test(request):    
+    def test(request):    
 
-    # lógica da view
+        # lógica da view
 
-    return render(request, 'frontend_testpage.html') 
+        return render(request, 'frontend_testpage.html') 
 
 2. os templates de apps são retornados pela função 'frontend_context()';
 ex:
@@ -76,7 +78,7 @@ ex:
 3. o template de layout renderizados na view exibe os templates de apps definidos a partir da TAG 'include';
 ex:
 
-  <center> {% include TEMPLATES.CONTENT %}  </center>
+    <center> {% include TEMPLATES.CONTENT %}  </center>
 
 
 #### 'users'

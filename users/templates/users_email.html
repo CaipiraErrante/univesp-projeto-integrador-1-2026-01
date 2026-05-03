@@ -1,0 +1,36 @@
+<h1> Alterar E-mail </h1>   
+
+<form method="post" action="/accounts/email/">
+    {% csrf_token %}
+    <input checked name="email" id="email_radio_0" value="dev@marcelo.magalhaes.nom.br" type="radio">
+    <label for="email_radio_0"> dev@marcelo.magalhaes.nom.br <strong > Não verificado </strong> </label>
+    <button name="action_primary" type="submit"> Tornar principal </button>
+    <button name="action_send" type="submit"> Reenviar verificação </button>
+    <button name="action_remove" type="submit"> Remover </button>            
+</form>    
+    
+<h2> Adicionar endereço de e-mail </h2>        
+        
+<form method="post" action="/accounts/email/">
+    {% csrf_token %} 
+    <label for="id_email"> Email: </label>
+    <input type="email" name="email" autocomplete="email" placeholder="Endereço de e-mail" maxlength="320" required id="id_email">
+    <button name="action_add" type="submit"> Adicionar e-mail </button>            
+</form>
+
+{% if errors %}  <div class="mb-3"> {{ errors }} </div> {% endif %}
+<div class="mb-3"> 
+    <a href="/accounts/email/"> [Alterar e-mail] </a>
+    <a href="/accounts/password/change/"> [Alterar Senha] </a>  
+    <a href="/accounts/3rdparty/"> [Conexões de Conta] </a>
+    <a href="/accounts/sessions/"> [Sessões] </a>
+    <a href="/accounts/logout"> [LogOut] </a> 
+</div>
+
+<script src="/static/account/js/account.js"></script>
+<script src="/static/account/js/onload.js"></script>
+<script data-allauth-onload="allauth.account.forms.manageEmailForm" type="application/json">
+    {"i18n": 
+        {"confirmDelete": "Você realmente deseja remover o endereço de e-mail selecionado?"}
+    } 
+</script>

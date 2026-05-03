@@ -1,0 +1,19 @@
+<form method="post" action="/accounts/logout/">   
+    {% csrf_token %} 
+    <div class="col">
+        <div class="mb-3">
+            <label for="" class="form-label">Tem certeza de que deseja sair?</label>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary"> Sair </button>
+        </div>
+    </div>          
+</form>
+{% if errors %}  <div class="mb-3"> {{ errors }} </div> {% endif %}
+<div class="mb-3"> 
+    <a href="/accounts/email/"> [Alterar e-mail] </a>
+    <a href="/accounts/password/change/"> [Alterar Senha] </a>  
+    <a href="/accounts/3rdparty/"> [Conexões de Conta] </a>
+    <a href="/accounts/sessions/"> [Sessões] </a>
+    <a href="/accounts/logout"> [LogOut] </a> 
+</div>  

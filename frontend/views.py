@@ -1,21 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from frontend.context_processors import frontend_context
 
 # Create your views here.
-def homepage(request):
+def homepage(request):                
+    return render(request, 'frontend_homepage.html') 
 
-    # criando um dicionário com os templates que serão incluídos no userpage.html.
-    templates = {
-        'content': 'frontend_homecontent.html',
-    }
+def userpage(request): 
+    if not request.user.is_authenticated:
+        return redirect('account_login')
 
-    return render(request, 'frontend_homepage.html', {'templates': templates})
+    return render(request, 'frontend_userpage.html')
 
-@login_required(login_url='login')
-def userpage(request):
+def test(request):    
 
-    # criando um dicionário com os templates que serão incluídos no userpage.html.
-    templates = {
-        'content': 'frontend_usercontent.html',
-    }
-    return render(request, 'frontend_userpage.html', {'templates': templates})
+    return render(request, 'frontend_testpage.html') 

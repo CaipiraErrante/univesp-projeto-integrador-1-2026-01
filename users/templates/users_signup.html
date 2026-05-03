@@ -1,0 +1,23 @@
+<form method="post" action="/accounts/signup/"> 
+  {% csrf_token %}
+  <div class="col">
+    <div class="mb-3">
+      <label for="" class="form-label">Usuário:</label>
+      <input type="text" name="login" id="id_login" class="form-control" aria-describedby="loguinHelpId">
+      <small id="loginHelpId" class="text-body-secondary"> Help text </small>
+    <div class="mb-3">
+      <label for="" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" id="id_password">
+    </div>  
+    <div class="mb-3">
+      <label for="" class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" id="id_email" aria-describedby="emailHelpId">
+      <small id="emailHelpId" class="form-text text-body-secondary"> Help text </small>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-primary" type="submit"> Cadastrar </button>
+    </div>
+  </div> 
+</form>
+{% if errors %}  <div class="mb-3"> {{ errors }} </div> {% endif %}
+<div class="mb-3"> <a href="/accounts/password/reset/">[Nova Senha]</a>  <a href="/accounts/login/">[LogIn]</a> </div>  

@@ -5,11 +5,10 @@ from django import forms
 
 class ProfileForm(forms.Form):  
     
-    username = forms.CharField(label="Username", max_length=100, required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    email = forms.EmailField(label="Email", required=True)
-    first_name = forms.CharField(label="Nome", max_length=100, required=False)
-    last_name = forms.CharField(label="Sobrenome", max_length=100, required=False)
-    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
+    username = forms.CharField(label="Usuário:", max_length=100, required=True, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    email = forms.EmailField(label="Email:", required=True)
+    first_name = forms.CharField(label="Nome:", max_length=100, required=True)
+    last_name = forms.CharField(label="Sobrenome:", max_length=100, required=True)  
 
     # Os métodos abaixo são usados para validar os campos do formulário. 
     # São chamados automaticamente quando o método is_valid() é chamado no formulário. 
@@ -19,12 +18,7 @@ class ProfileForm(forms.Form):
             username = self.cleaned_data['username']
             if len(username) < 3:
                 raise forms.ValidationError("Username must be at least 3 characters long.")
-            return username
-    def clean_password(self):
-            password = self.cleaned_data['password']
-            if len(password) < 6:
-                raise forms.ValidationError("Password must be at least 6 characters long.")
-            return password
+            return username    
     def clean_email(self):       
             email = self.cleaned_data['email']
             if email.endswith('@example.com'):
@@ -64,23 +58,4 @@ class NewUserForm(forms.Form):
             email = self.cleaned_data['email']
             if email.endswith('@example.com'):
                raise forms.ValidationError("Email must not be from the domain @example.com.")
-            return email
-     
-class LoginForm(forms.Form):
-    username = forms.CharField(label="Username", max_length=100, required=True)
-    password = forms.CharField(label="Senha", widget=forms.PasswordInput)
-
-    # Os métodos abaixo são usados para validar os campos do formulário. 
-    # São chamados automaticamente quando o método is_valid() é chamado no formulário. 
-    # Os critérios de validação utilizados aqui são apenas exemplos e podem ser ajustados 
-    # conforme necessário para atender aos requisitos específicos do projeto.   
-    def clean_username(self):
-            username = self.cleaned_data['username']
-            if len(username) < 3:
-                raise forms.ValidationError("Username must be at least 3 characters long.")
-            return username
-    def clean_password(self):
-            password = self.cleaned_data['password']
-            if len(password) < 6:
-                raise forms.ValidationError("Password must be at least 6 characters long.")
-            return password
+            return email 

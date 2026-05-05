@@ -1,30 +1,85 @@
-<h1> Alterar E-mail </h1>   
+{% load django_bootstrap5 %}
 
-<form method="post" action="/accounts/email/">
-    {% csrf_token %}
-    <input checked name="email" id="email_radio_0" value="dev@marcelo.magalhaes.nom.br" type="radio">
-    <label for="email_radio_0"> dev@marcelo.magalhaes.nom.br <strong > Não verificado </strong> </label>
-    <button name="action_primary" type="submit"> Tornar principal </button>
-    <button name="action_send" type="submit"> Reenviar verificação </button>
-    <button name="action_remove" type="submit"> Remover </button>            
-</form>    
-    
-<h2> Adicionar endereço de e-mail </h2>        
-        
-<form method="post" action="/accounts/email/">
-    {% csrf_token %} 
-    <label for="id_email"> Email: </label>
-    <input type="email" name="email" autocomplete="email" placeholder="Endereço de e-mail" maxlength="320" required id="id_email">
-    <button name="action_add" type="submit"> Adicionar e-mail </button>            
-</form>
+<div class="container-sm" style="max-width: 600px;">
+    <table class="table table-light" style="width: 100%; margin-left: auto; margin-right: auto;">
+    <form class="form-control" method="post" action="/accounts/email/" id="login-form">
+    {% csrf_token %}    
+        <thead class="table-light">
+            <tr>
+            <th colspan="2" align="center"> E-mails associados à conta: </th>
+            </tr>
+        </thead>
+        <tbody  class="table-group-divider">             
+            {% for radio in emailaddress_radios %}
+                {% with emailaddress=radio.emailaddress %}
+                    <tr>
+                        <td align="right" vertical-align="middle"> <input type="radio" checked=radio.checked name="email" value="{{ emailaddress.email }}" id="{{ radio.id }}"> </td>
+                        <td align="left" vertical-align="middle"> <label for="{{ radio.id }}"> {{ emailaddress.email }} 
+                            {% if emailaddress.verified %}
+                                <strong> [Verificado] </strong>
+                            {% else %}
+                                <strong> [Não verificado] </strong>
+                            {% endif %}
+                            {% if emailaddress.primary %}
+                                <strong> [Principal] </strong>
+                            {% endif %}
+                            </label> 
+                        </td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr>
+                <td colspan="2" align="center">         
+                    {%bootstrap_button button_type="submit" name="action_primary" content="Tornar principal" %}  
+                    {%bootstrap_button button_type="submit" name="action_send" content="Reenviar verificação" %}
+                    {%bootstrap_button button_type="submit" name="action_remove" content="Remover" %}    
+                </td>
+            </tr>
+        </tbody>
+    </form> 
+    </table>
+</div>
 
-{% if errors %}  <div class="mb-3"> {{ errors }} </div> {% endif %}
-<div class="mb-3"> 
-    <a href="/accounts/email/"> [Alterar e-mail] </a>
-    <a href="/accounts/password/change/"> [Alterar Senha] </a>  
-    <a href="/accounts/3rdparty/"> [Conexões de Conta] </a>
-    <a href="/accounts/sessions/"> [Sessões] </a>
-    <a href="/accounts/logout"> [LogOut] </a> 
+<div class="container-sm" style="max-width: 600px;">
+    <table class="table table-light" style="width: 100%; margin-left: auto; margin-right: auto;">
+    <form class="form-control" method="post" action="/accounts/email/" id="login-form">
+    {% csrf_token %}    
+        <thead class="table-light">
+            <tr>
+            <th colspan="2" align="center"> Adicionar novo e-mail: </th>
+            </tr>
+        </thead>  
+        <tbody class="table-group-divider">
+            <tr>
+                <td align="right" vertical-align="middle"> {% bootstrap_label "Email:" %} </td>
+                <td align="left" vertical-align="middle"> {% bootstrap_field form.email show_label=false placeholder=false %} </td>
+            </tr>
+            </tr>
+                <td colspan="2" align="center" vertical-align="middle"> 
+                {% bootstrap_button button_type="submit" name="action_add" content="Adicionar e-mail" %}
+                </td>
+            </tr>
+        </tbody>
+        </table>        
+    </form>    
+</div>    
+
+{% if errors %}
+<div class="container-sm" style="max-width: 750px;">
+  <div class="row justify-content-md-center" style="margin-top: 10px;">
+    <div class="col align-self-center">{{ errors }}</div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container-sm" style="max-width: 750px; margin-top: 10px;">
+  <div class="row justify-content-md-center" style="margin-bottom: 5px;">
+    <div class="col align-self-center"><a href="/accounts/password/change/">[Alterar Senha]</a></div>
+    <div class="col align-self-center"><a href="/accounts/email/">[Alterar Email]</a></div>
+    <div class="col align-self-center"><a href="/accounts/3rdparty/"> [Redes Sociais] </a></div>
+    <div class="col align-self-center"><a href="/accounts/sessions/">[Sessões]</a></div>
+    <div class="col align-self-center"><a href="/accounts/logout/">[LogOut]</a></div>
+  </div>
 </div>
 
 <script src="/static/account/js/account.js"></script>

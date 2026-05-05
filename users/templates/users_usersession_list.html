@@ -1,36 +1,51 @@
-{% load allauth %}
-{% load i18n %}
-{% load humanize %}
+{% load allauth humanize django_bootstrap5 %}
 
-<form method="post" action="/accounts/sessions/">    
-    <input type="hidden" name="csrfmiddlewaretoken" value="7EQyVOS95APK9lcjQ9nWwVERAMeDVojL5s0M9uLbcezJggWyVeS7IVbC56P8dS8s">
-            
-    <table>       
-        <thead>         
-            <tr>                        
-                <th> Iniciado em </th>                
-                <th> Endereço IP </th>
-                <th> Navegador </th>
-            </tr>
+<div class="container-sm" style="max-width: 1500px;">
+    <table class="table table-light" style="width: 100%; margin-left: auto; margin-right: auto;">
+    <form class="form-control" method="post" action="/accounts/sessions/" id="login-form">
+    {% csrf_token %}    
+      <thead class="table-light">  
+        <tr>                        
+            <th colspan=4> <center><h2>Sessões</h2></center> </th>
+        </tr>
+        <tr>                        
+            <th> Iniciado em </th>                
+            <th> IP </th>
+            <th> Navegador </th>
+            <th> </th>
+        </tr>
         </thead>
-        <tbody>
+        <tbody  class="table-group-divider">
             {% for session in sessions %}
             <tr>
-                <td > <span title="{{ session.created_at }}">{{ session.created_at|naturaltime }}</span> </td>
-                <td > {{ session.ip }} </td>
-                <td > {{ session.user_agent }} </td>
-                <td > {% if session.is_current %} {% element badge tags="session,current" %} [ {% translate "Current" %} ] {% endelement %} {% else %} {% endif %} </td>                        
+                <td vertical-align="middle"> <span title="{{ session.created_at }}">{{ session.created_at|naturaltime }}</span> </td>
+                <td vertical-align="middle"> {{ session.ip }} </td>
+                <td vertical-align="middle"> {{ session.user_agent }} </td>
+                <td vertical-align="middle"> {% if session.is_current %} {% element badge tags="session,current" %} [Atual] {% endelement %} {% else %} {% endif %} </td>                        
             </tr>
             {% endfor %}
-        </tbody>            
-    </table>               
+        </tbody>   
+            <tr>
+                <td colspan="4" align="center"> {% bootstrap_button button_type="submit" content="Sair de outras sessões" %} </td>
+            </tr>   
+        </form>
+        </table>  
+</div>             
 
-    <button class="btn btn-primary" type="submit"> Sair de outras sessões </button>
-</form>
-<div class="mb-3"> 
-    <a href="/accounts/email/"> [Alterar e-mail] </a>
-    <a href="/accounts/password/change/"> [Alterar Senha] </a>  
-    <a href="/accounts/3rdparty/"> [Conexões de Conta] </a>
-    <a href="/accounts/sessions/"> [Sessões] </a>
-    <a href="/accounts/logout"> [LogOut] </a> 
-</div> 
+{% if errors %}
+<div class="container-sm" style="max-width: 750px;">
+  <div class="row justify-content-md-center" style="margin-top: 10px;">
+    <div class="col align-self-center">{{ errors }}</div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container-sm" style="max-width: 750px; margin-top: 10px;">
+  <div class="row justify-content-md-center" style="margin-bottom: 5px;">
+    <div class="col align-self-center"><a href="/accounts/password/change/">[Alterar Senha]</a></div>
+    <div class="col align-self-center"><a href="/accounts/email/">[Alterar Email]</a></div>
+    <div class="col align-self-center"><a href="/accounts/3rdparty/"> [Redes Sociais] </a></div>
+    <div class="col align-self-center"><a href="/accounts/sessions/">[Sessões]</a></div>
+    <div class="col align-self-center"><a href="/accounts/logout/">[LogOut]</a></div>
+  </div>
+</div>
